@@ -1,3 +1,4 @@
+
 name: Build Diple Timetable Windows EXE
 
 on:
@@ -5,3 +6,31 @@ on:
   push:
     branches:
       - main
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Build Windows EXE
+        shell: pwsh
+        run: .\build-windows.ps1
+
+      - name: Upload Windows EXE
+        uses: actions/upload-artifact@v4
+        with:
+          name: Diple-Timetable-Windows
+          path: dist/Diple-Timetable.exe
+          if-no-files-found: error
+          retention-days: 30
