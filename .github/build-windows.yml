@@ -1,0 +1,7 @@
+name: Build Diple Timetable Windows EXE
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
